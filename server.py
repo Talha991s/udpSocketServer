@@ -24,7 +24,7 @@ def connectionLoop(sock):
             clients[addr] = {}
             clients[addr]['lastBeat'] = datetime.now()
             clients[addr]['color'] = 0
-            message = {"cmd": 0,"players":[]}    #{"id":str(addr)}}
+            message = {"cmd": 0,"players":[]}   
           #  m = json.dumps(message)
             p={}
             p['id'] = str(addr)
@@ -74,7 +74,7 @@ def gameLoop(sock):
       print("Boop")
       GameState = {"cmd": 1, "pktID": pktID, "players": []}
       clients_lock.acquire()
-      #print (clients)
+     
       for c in clients:
          player = {}
          clients[c]['color'] = {"R": random.random(), "G": random.random(), "B": random.random()}
@@ -83,7 +83,7 @@ def gameLoop(sock):
          GameState['players'].append(player)
       s=json.dumps(GameState, separators=(",",":"))
 
-      #print(s)
+      
       for c in clients:
          sock.sendto(bytes(s,'utf8'), (c[0],c[1]))
       clients_lock.release()
