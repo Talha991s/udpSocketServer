@@ -30,7 +30,7 @@ def connectionLoop(sock):
             p['id'] = str(addr)
             p['color'] = 0
             message['players'].append(p)
-            GameState = {"cmd":4, "player": []}
+            GameState = {"cmd":4, "players": []}
 
             for c in clients:
                if(c==addr):
@@ -97,9 +97,9 @@ def main():
    port = 12345
    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
    s.bind(('', port))
-   start_new_thread(gameLoop, (s,))
-   start_new_thread(connectionLoop, (s,))
-   start_new_thread(cleanClients,())
+   start_new_thread(gameLoop, (s, ))
+   start_new_thread(connectionLoop, (s, ))
+   start_new_thread(cleanClients,(s, ))
    while True:
       time.sleep(1)
 
